@@ -5,17 +5,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Мой учебный сайт — Задание 3</title>
-  <!-- Все стили подключаются из отдельного файла.
-       Внутри style.css сначала идут правила для телефонов,
-       затем через Media Query — для планшетов и компьютеров (Mobile First) -->
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- ШАПКА: фон тянется на всю ширину окна -->
+
   <header id="header">
-    <!-- flex-контейнер шапки: логотип, название сайта, меню -->
     <div id="header-inner" class="container">
 
       <!-- ЛОГОТИП -->
@@ -24,8 +20,7 @@
       <!-- НАЗВАНИЕ САЙТА -->
       <p id="site-name">Мой учебный сайт</p>
 
-      <!-- МЕНЮ: на телефоне — вертикальный список под шапкой,
-           на планшете и компьютере — кнопки в правом верхнем углу шапки -->
+
       <nav id="menu">
         <ul class="menu-list">
           <li class="menu-item"><a class="menu-link" href="#links">Ссылки</a></li>
@@ -37,9 +32,7 @@
     </div>
   </header>
 
-  <!-- ОСНОВНОЕ СОДЕРЖИМОЕ (flex-контейнер).
-       В HTML список ссылок идёт раньше таблицы,
-       но на телефоне таблица показывается выше за счёт свойства order -->
+
   <main id="content" class="container">
 
     <h1 class="page-title">Разработка пользовательского веб-интерфейса</h1>
@@ -56,7 +49,7 @@
       </ul>
     </section>
 
-    <!-- 2. Таблица -->
+
     <section id="schedule" class="block">
       <h2 class="block-title">Таблица</h2>
 
@@ -64,7 +57,7 @@
         <table class="data-table">
           <caption class="table-caption">Расписание занятий на неделю</caption>
 
-          <!-- строка-заголовок с названиями колонок -->
+
           <thead>
             <tr>
               <th scope="col">День недели</th>
@@ -76,7 +69,6 @@
 
           <tbody>
             <tr>
-              <!-- объединение ячеек по вертикали (2 строки) -->
               <td class="merged" rowspan="2">Понедельник</td>
               <td>09:00–10:30</td>
               <td>Веб-разработка</td>
@@ -100,7 +92,7 @@
             </tr>
             <tr>
               <td>Среда</td>
-              <!-- объединение ячеек по горизонтали (3 колонки) -->
+
               <td class="merged" colspan="3">Самостоятельная работа</td>
             </tr>
             <tr>
@@ -120,15 +112,12 @@
       </div>
     </section>
 
-    <!-- 3. Форма -->
     <section id="feedback" class="block">
       <h2 class="block-title">Форма</h2>
 
-      <!-- Проверка полей встроена в HTML5: required, type и pattern.
-           Браузер не даст отправить форму, пока поля заполнены неверно. -->
+
       <form class="form" method="get">
 
-        <!-- ФИО: только буквы (русские/латинские), пробелы и дефис — цифры запрещены -->
         <p class="form-row">
           <label class="form-label" for="fio">ФИО:</label>
           <input class="form-field validated" type="text" id="fio" name="fio"
@@ -139,7 +128,7 @@
           <small class="form-hint" id="fio-hint">Только буквы, пробелы и дефис — цифры не допускаются</small>
         </p>
 
-        <!-- E-mail: type="email" требует символ @, pattern — ещё и точку в домене -->
+
         <p class="form-row">
           <label class="form-label" for="email">E-mail:</label>
           <input class="form-field validated" type="email" id="email" name="email"
@@ -150,7 +139,7 @@
           <small class="form-hint" id="email-hint">Обязательно с символом @, например name@example.com</small>
         </p>
 
-        <!-- Телефон: только цифры, пробелы, скобки, дефис и + в начале — буквы запрещены -->
+
         <p class="form-row">
           <label class="form-label" for="phone">Телефон:</label>
           <input class="form-field validated" type="tel" id="phone" name="phone"
@@ -161,7 +150,6 @@
           <small class="form-hint" id="phone-hint">Только цифры, пробелы, скобки и дефис — буквы не допускаются</small>
         </p>
 
-        <!-- Дата рождения: календарь выбора даты -->
         <p class="form-row">
           <label class="form-label" for="birthdate">Дата рождения:</label>
           <input class="form-field" type="date" id="birthdate" name="birthdate"
@@ -202,7 +190,7 @@
 
   </main>
 
-  <!-- ПОДВАЛ: фон тянется на всю ширину окна -->
+
   <footer id="footer">
     <div class="container">
       <p class="copyright">&copy; 2026 Константин Лендыл</p>
