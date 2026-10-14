@@ -1,12 +1,23 @@
 /* =========================================================
-   Задание 2. Стили страницы
+   Задание 3. Адаптивная вёрстка Mobile First (Flex Box + Media Query)
+
+   Порядок правил в файле:
+   1) БАЗОВЫЕ СТИЛИ — для смартфонов (загружаются первыми);
+   2) @media screen and (min-width: 600px) — дополнения
+      для планшетов и компьютеров;
+   3) @media screen and (min-width: 768px) — уточнения
+      для широких экранов.
    Стили подключаются через id (#) и классы (.)
+   ========================================================= */
+
+
+/* =========================================================
+   1. БАЗОВЫЕ СТИЛИ — СМАРТФОН (Mobile First)
+   Шапка, меню, контент и подвал занимают 100% ширины экрана
    ========================================================= */
 
 /* ---------- Общие настройки ---------- */
 
-/* убираем отступ по умолчанию у body, чтобы шапка
-   и подвал тянулись на всю ширину окна */
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
@@ -16,109 +27,127 @@ body {
   background-color: #eef2f7;
 }
 
-/* Контейнер: максимальная ширина 960px, выравнивание по центру */
+/* На телефоне контейнер занимает всю ширину экрана */
 .container {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 0 15px;
+  width: 100%;
   box-sizing: border-box;
-}
-
-/* Очистка обтекания (float) внутри блока */
-.clearfix::after {
-  content: "";
-  display: table;
-  clear: both;
 }
 
 /* ---------- Шапка ---------- */
 
 #header {
-  width: 100%;
   background-color: #2f5d8a;
   color: #fff;
-  padding: 15px 0;
 }
 
-/* Логотип: круглая картинка, обтекается текстом слева */
+/* Flex-контейнер шапки: логотип и название в одной строке,
+   меню переносится на отдельную строку (flex-wrap: wrap) */
+#header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Логотип — круглая картинка */
 #logo {
-  float: left;
-  width: 80px;
-  height: 80px;
-  margin-right: 20px;
+  flex: none;
+  width: 60px;
+  height: 60px;
+  margin: 10px 15px;
   border-radius: 50%;
   border: 3px solid #fff;
 }
 
-/* Название сайта */
+/* Название сайта занимает оставшееся место в строке */
 #site-name {
-  margin: 10px 0 0;
-  font-size: 28px;
+  flex: 1;
+  margin: 0;
+  padding-right: 15px;
+  font-size: 22px;
+  line-height: 1.2;
   font-weight: bold;
   letter-spacing: 1px;
 }
 
 /* ---------- Меню ---------- */
 
+/* На телефоне меню — отдельный блок на всю ширину под шапкой */
 #menu {
-  text-align: right;
+  flex-basis: 100%;
+  background-color: #244a6f;
 }
 
+/* Ссылки меню выводятся вертикальным списком */
 .menu-list {
+  display: flex;
+  flex-direction: column;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.menu-item {
-  display: inline-block;
-  margin-left: 5px;
-}
-
 .menu-link {
   display: block;
-  padding: 6px 14px;
+  padding: 12px 15px;
   color: #fff;
   text-decoration: none;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 4px;
-  background-color: #4a7fb5;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .menu-link:hover,
 .menu-link:focus {
-  background-color: #fff;
-  color: #2f5d8a;
+  background-color: #4a7fb5;
 }
 
 /* ---------- Основное содержимое ---------- */
 
+/* Flex-контейнер: блоки идут друг под другом (column) */
 #content {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 10px;
 }
 
+/* Порядок блоков на телефоне:
+   заголовок → таблица → список ссылок → форма.
+   В HTML список ссылок стоит раньше таблицы,
+   поэтому меняем порядок свойством order */
+#schedule {
+  order: 1;
+}
+
+#links {
+  order: 2;
+}
+
+#feedback {
+  order: 3;
+}
+
+/* заголовок страницы остаётся первым (order: 0) */
 .page-title {
-  margin: 0 0 20px;
-  font-size: 26px;
+  order: 0;
+  margin: 15px;
+  font-size: 21px;
+  line-height: 1.3;
   color: #2f5d8a;
 }
 
-/* Блоки контента (список, таблица, форма) */
+/* Блоки контента на телефоне — на всю ширину экрана */
 .block {
-  margin-bottom: 20px;
-  padding: 15px 20px;
+  margin: 0 0 10px;
+  padding: 15px;
   background-color: #fff;
-  border: 1px solid #c9d6e5;
-  border-radius: 6px;
+  border-top: 1px solid #c9d6e5;
+  border-bottom: 1px solid #c9d6e5;
 }
 
 .block-title {
   margin: 0 0 12px;
+  padding-bottom: 6px;
   font-size: 20px;
   color: #2f5d8a;
   border-bottom: 2px solid #c9d6e5;
-  padding-bottom: 6px;
 }
 
 /* ---------- Список гиперссылок ---------- */
@@ -126,6 +155,10 @@ body {
 .link-list {
   margin: 0;
   padding-left: 20px;
+}
+
+.link-list li {
+  margin-bottom: 4px;
 }
 
 .link-list a {
@@ -138,7 +171,7 @@ body {
 
 /* ---------- Таблица ---------- */
 
-/* обёртка даёт горизонтальную прокрутку на узких экранах */
+/* обёртка даёт горизонтальную прокрутку таблицы на узком экране */
 .table-wrap {
   overflow-x: auto;
 }
@@ -179,7 +212,7 @@ body {
   background-color: #dde8f4;
 }
 
-/* объединённые ячейки выделяем отдельно */
+/* объединённые ячейки */
 .data-table .merged {
   background-color: #fdf1d6;
   font-weight: bold;
@@ -200,8 +233,7 @@ body {
 
 .form-field {
   width: 100%;
-  max-width: 400px;
-  padding: 6px 8px;
+  padding: 8px;
   font: inherit;
   border: 1px solid #9fb6cf;
   border-radius: 4px;
@@ -222,7 +254,7 @@ body {
 }
 
 /* Проверка полей ФИО, e-mail и телефона.
-   :not(:placeholder-shown) — поле уже не пустое (пользователь начал ввод),
+   :not(:placeholder-shown) — поле уже не пустое,
    :invalid / :valid — значение не подходит / подходит под правила из HTML */
 .validated:not(:placeholder-shown):invalid {
   border-color: #c0392b;
@@ -234,14 +266,20 @@ body {
   background-color: #eefaf2;
 }
 
-/* при ошибке подсказка под полем становится красной */
 .validated:not(:placeholder-shown):invalid + .form-hint {
   color: #c0392b;
   font-weight: bold;
 }
 
+/* Кнопки: на телефоне делят строку поровну */
+.form-buttons {
+  display: flex;
+  gap: 10px;
+}
+
 .button {
-  padding: 8px 20px;
+  flex: 1;
+  padding: 10px 20px;
   font: inherit;
   color: #fff;
   background-color: #2f5d8a;
@@ -265,38 +303,139 @@ body {
 /* ---------- Подвал ---------- */
 
 #footer {
-  width: 100%;
+  padding: 12px 15px;
   background-color: #2f5d8a;
   color: #fff;
-  padding: 10px 0;
 }
 
 .copyright {
   margin: 0;
 }
 
-/* ---------- Узкие экраны (телефоны) ---------- */
 
-@media (max-width: 600px) {
-  #logo {
-    width: 60px;
-    height: 60px;
-    margin-right: 12px;
+/* =========================================================
+   2. ПЛАНШЕТЫ И КОМПЬЮТЕРЫ (ширина экрана от 600px)
+   Страница выглядит как в задании 2
+   ========================================================= */
+
+@media screen and (min-width: 600px) {
+
+  /* Контент и меню — не шире 960px, по центру */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 15px;
   }
 
+  /* ---------- Шапка: логотип | название | меню в одну строку ---------- */
+
+  #header {
+    padding: 15px 0;
+  }
+
+  #header-inner {
+    flex-wrap: nowrap;
+  }
+
+  #logo {
+    width: 80px;
+    height: 80px;
+    margin: 0 20px 0 0;
+  }
+
+  /* название прижато к нижнему краю шапки */
   #site-name {
-    font-size: 22px;
+    align-self: flex-end;
+    padding-right: 20px;
+    font-size: 24px;
+    line-height: 1.2;
+  }
+
+  /* ---------- Меню: горизонтально, в правом верхнем углу ---------- */
+
+  #menu {
+    flex-basis: auto;
+    align-self: flex-start;
+    background-color: transparent;
+  }
+
+  .menu-list {
+    flex-direction: row;
+    gap: 5px;
+  }
+
+  .menu-link {
+    padding: 6px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 4px;
+    background-color: #4a7fb5;
+  }
+
+  .menu-link:hover,
+  .menu-link:focus {
+    background-color: #fff;
+    color: #2f5d8a;
+  }
+
+  /* ---------- Контент ---------- */
+
+  #content {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  /* Порядок как в HTML: список ссылок → таблица → форма */
+  #links {
+    order: 1;
+  }
+
+  #schedule {
+    order: 2;
   }
 
   .page-title {
-    font-size: 21px;
+    margin: 0 0 20px;
+    font-size: 26px;
   }
 
-  #menu {
-    text-align: left;
+  .block {
+    margin-bottom: 20px;
+    padding: 15px 20px;
+    border: 1px solid #c9d6e5;
+    border-radius: 6px;
   }
 
-  .menu-item {
-    margin: 0 5px 5px 0;
+  /* ---------- Форма ---------- */
+
+  .form-field {
+    max-width: 400px;
+    padding: 6px 8px;
+  }
+
+  .form-buttons {
+    max-width: 400px;
+  }
+
+  .button {
+    flex: none;
+    padding: 8px 20px;
+  }
+
+  /* ---------- Подвал ---------- */
+
+  #footer {
+    padding: 10px 0;
+  }
+}
+
+
+/* =========================================================
+   3. ШИРОКИЕ ЭКРАНЫ (от 768px) — крупное название сайта
+   ========================================================= */
+
+@media screen and (min-width: 768px) {
+  #site-name {
+    font-size: 28px;
+    margin-bottom: 8px;
   }
 }
